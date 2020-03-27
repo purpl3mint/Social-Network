@@ -6,15 +6,15 @@ import Profile from './components/Profile/Profile.jsx';
 import Dialogs from './components/Dialogs/Dialogs';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-function App() {
+function App(props) {
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
         <Header />
         <Navbar />
         <div className='app-wrapper-content'>
-          <Route path='/profile' component={Profile} />
-          <Route path='/dialogs' component={Dialogs} />
+          <Route path='/profile' render={() => <Profile state={props.appState.profilePage} />} />
+          <Route path='/dialogs' render={() => <Dialogs state={props.appState.dialogsPage} />} />
         </div>
       </div>
     </BrowserRouter>
