@@ -18,7 +18,11 @@ function App(props) {
               state={props.appState.profilePage}
               dispatch={props.dispatch}
             />} />
-          <Route path='/dialogs' render={() => <Dialogs state={props.appState.dialogsPage} />} />
+          <Route path='/dialogs' render={() =>
+            <Dialogs
+              state={props.appState.dialogsPage}
+              dispatch={props.dispatch}
+            />} />
         </div>
       </div>
     </BrowserRouter>
