@@ -6,17 +6,17 @@ import { updateNewMessageTextCreator, sendMessageCreator } from '../../redux/dia
 
 const Dialog = (props) => {
 
-  let dialogsElements = props.state.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} />);
-  let messagesElements = props.state.messagesData.map(message => <Message text={message.text} />);
-  let newMessageText = props.state.newMessageText;
+  let dialogsElements = props.dialogsPage.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} />);
+  let messagesElements = props.dialogsPage.messagesData.map(message => <Message text={message.text} />);
+  let newMessageText = props.dialogsPage.newMessageText;
 
   let onSendMessageClick = () => {
-    props.dispatch(sendMessageCreator());
+    props.sendMessage();
   }
 
   let onNewMessageChange = (event) => {
     let text = event.target.value;
-    props.dispatch(updateNewMessageTextCreator(text));
+    props.updateNewMessageText(text);
   }
 
   return (
