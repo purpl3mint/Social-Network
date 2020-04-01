@@ -8,16 +8,15 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 function App(props) {
   return (
-    <BrowserRouter>
-      <div className='app-wrapper'>
-        <Header />
-        <Navbar />
-        <div className='app-wrapper-content'>
-          <Route path='/profile' render={() => <Profile />} />
-          <Route path='/dialogs' render={() => <DialogsContainer />} />
-        </div>
+
+    <div className='app-wrapper'>
+      <Header />
+      <Navbar />
+      <div className='app-wrapper-content'>
+        <Route path='/profile' render={() => <Profile />} />
+        <Route path='/dialogs' render={() => <DialogsContainer />} />
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 
