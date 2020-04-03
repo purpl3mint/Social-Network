@@ -1,23 +1,47 @@
 import React from 'react';
 import style from './users.module.css';
 import * as axios from 'axios';
+import userImage from '../../images/unnamed.jpg';
 
 class Users extends React.Component {
 
   componentDidMount() {
-    axios.get("https://social-network.samuraijs.com/api/1.0/users")
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+      .then(response => {
+        this.props.setUsers(response.data.items);
+        this.props.setTotalUsersCount(response.data.totalCount);
+      });
+  }
+
+  onPageChaged = (pageNumber) => {
+    this.props.setCurrentPage(pageNumber);
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
       .then(response => {
         this.props.setUsers(response.data.items);
       });
   }
 
   render() {
+
+    let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+      pages.push(i);
+    }
+
     return <div>
+      <div className={style.pagination}>
+        {pages.map(p => {
+          return <span className={style.page + ' ' + this.props.currentPage === p && style.selectedPage}
+            onClick={(e) => { this.onPageChaged(p) }}>{p}</span>
+        })}
+      </div>
       {
         this.props.users.map(u => <div key={u.id} className={style.userContainer}>
           <span>
             <div>
-              <img src={u.photos.small != null ? u.photos.small : "https://yt3.ggpht.com/a/AATXAJzaqQ27AzdLIzhcQjJyZSE-7bzisejMwGeevw=s900-c-k-c0xffffffff-no-rj-mo"} className={style.userPhoto} />
+              <img src={u.photos.small != null ? u.photos.small : userImage} className={style.userPhoto} />
             </div>
             <div>
               {u.followed ?
@@ -37,7 +61,7 @@ class Users extends React.Component {
           </span>
         </div>)
       }
-    </div>
+    </div >
   }
 }
 

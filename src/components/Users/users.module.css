@@ -25,3 +25,13 @@
 .username {
   width: 300px;
 }
+
+.selectedPage {
+  font-weight: bold;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+}
