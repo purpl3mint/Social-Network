@@ -1,68 +1,49 @@
 import React from 'react';
 import style from './users.module.css';
-import * as axios from 'axios';
 import userImage from '../../images/unnamed.jpg';
 
-class Users extends React.Component {
+let Users = (props) => {
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-  componentDidMount() {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-      .then(response => {
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
-      });
+  let pages = [];
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i);
   }
 
-  onPageChaged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-      .then(response => {
-        this.props.setUsers(response.data.items);
-      });
-  }
+  console.log(props.totalUsersCount);
 
-  render() {
-
-    let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-      pages.push(i);
-    }
-
-    return <div>
-      <div className={style.pagination}>
-        {pages.map(p => {
-          return <span className={style.page + ' ' + this.props.currentPage === p && style.selectedPage}
-            onClick={(e) => { this.onPageChaged(p) }}>{p}</span>
-        })}
-      </div>
-      {
-        this.props.users.map(u => <div key={u.id} className={style.userContainer}>
+  return <div>
+    <div className={style.pagination}>
+      {pages.map(p => {
+        return <span className={props.currentPage === p && style.selectedPage}
+          onClick={(e) => { props.onPageChaged(p) }}>{p}</span>
+      })}
+    </div>
+    {
+      props.users.map(u => <div key={u.id} className={style.userContainer}>
+        <span>
+          <div>
+            <img src={u.photos.small != null ? u.photos.small : userImage} className={style.userPhoto} />
+          </div>
+          <div>
+            {u.followed ?
+              <button onClick={() => { props.unfollow(u.id) }}>Unfollow</button> :
+              <button onClick={() => { props.follow(u.id) }}>Follow</button>}
+          </div>
+        </span>
+        <span className={style.userInfo}>
+          <span className={style.username}>
+            <div>{u.name}</div>
+            <div>{u.status}</div>
+          </span>
           <span>
-            <div>
-              <img src={u.photos.small != null ? u.photos.small : userImage} className={style.userPhoto} />
-            </div>
-            <div>
-              {u.followed ?
-                <button onClick={() => { this.props.unfollow(u.id) }}>Unfollow</button> :
-                <button onClick={() => { this.props.follow(u.id) }}>Follow</button>}
-            </div>
+            <div>{'u.location.city'}</div>
+            <div>{'u.location.country'}</div>
           </span>
-          <span className={style.userInfo}>
-            <span className={style.username}>
-              <div>{u.name}</div>
-              <div>{u.status}</div>
-            </span>
-            <span>
-              <div>{'u.location.city'}</div>
-              <div>{'u.location.country'}</div>
-            </span>
-          </span>
-        </div>)
-      }
-    </div >
-  }
+        </span>
+      </div>)
+    }
+  </div >
 }
 
 export default Users;
