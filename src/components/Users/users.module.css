@@ -28,6 +28,7 @@
 
 .selectedPage {
   font-weight: bold;
+  color: white;
 }
 
 .pagination {
