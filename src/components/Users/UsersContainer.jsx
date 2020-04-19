@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Users from './Users';
 import { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers } from '../../redux/usersReducer';
 import Preloader from '../common/Preloader/Preloader';
+import { compose } from 'redux';
 
 class UsersAPIComponent extends React.Component {
 
@@ -43,6 +44,7 @@ let mapStateToProps = (state) => {
     followingInProgress: state.usersPage.followingInProgress
   }
 }
+
 
 export default connect(mapStateToProps, {
   follow,
