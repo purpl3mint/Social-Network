@@ -1,11 +1,13 @@
-import { updateNewMessageTextCreator, sendMessageCreator } from '../../redux/dialogsReducer.js';
-import Dialog from './Dialogs';
 import { connect } from 'react-redux';
+import { sendMessageCreator, updateNewMessageTextCreator } from '../../redux/dialogsReducer.js';
+import Dialog from './Dialogs';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+
+let AuthRedirectComponent = withAuthRedirect(Dialog);
 
 let mapStateToProps = (state) => {
   return {
-    dialogsPage: state.dialogsPage,
-    isAuth: state.auth.isAuth
+    dialogsPage: state.dialogsPage
   }
 }
 
@@ -16,7 +18,7 @@ let mapDispatchToProps = (dispatch) => {
   }
 }
 
-const SuperDialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialog);
+const SuperDialogContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 
 export default SuperDialogContainer;
