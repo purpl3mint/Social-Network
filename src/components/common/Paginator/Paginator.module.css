@@ -1,0 +1,10 @@
+.selectedPage {
+  font-weight: bold;
+  color: white;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1000px;
+}

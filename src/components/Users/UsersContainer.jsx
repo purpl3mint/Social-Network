@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Users from './Users';
 import { follow, unfollow, setCurrentPage, toggleFollowingProgress, requestUsers } from '../../redux/usersReducer';
 import Preloader from '../common/Preloader/Preloader';
-import { compose } from 'redux';
 import { getUsers, getPageSize, getCurrentPage, getTotalUsersCount, getIsFetching, getFollowingInProgress } from '../../redux/usersSelectors';
 
 class UsersAPIComponent extends React.Component {
