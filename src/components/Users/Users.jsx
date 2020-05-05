@@ -9,7 +9,7 @@ let Users = ({ currentPage, totalUsersCount, pageSize, onPageChaged, users, ...p
     <Paginator
       currentPage={currentPage}
       onPageChaged={onPageChaged}
-      totalUsersCount={totalUsersCount}
+      totalItemsCount={totalUsersCount}
       pageSize={pageSize}
     />
     {
