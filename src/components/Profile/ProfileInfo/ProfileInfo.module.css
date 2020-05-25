@@ -5,3 +5,18 @@
 .mainPhoto {
   max-width: 200px;
 }
+
+.contact {
+  padding-left: 10px;
+}
+
+.formControl.error span
+{
+  color: red;
+}
+
+.formSummaryError {
+  border: red 1px solid;
+  padding: 5px;
+  color: red;
+}
